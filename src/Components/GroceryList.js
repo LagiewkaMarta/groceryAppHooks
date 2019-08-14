@@ -6,6 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import GroceryItem from "./GroceryItem";
 
 export default function GroceryList({ groceries, remove, toggleGrocery,editGrocery }) {
+  if(groceries.length !== 0){
   return (
     <Paper>
       <List>
@@ -26,4 +27,6 @@ export default function GroceryList({ groceries, remove, toggleGrocery,editGroce
       </List>
     </Paper>
   );
+        }
+        return null;
 }
