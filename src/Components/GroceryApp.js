@@ -15,9 +15,12 @@ export default function GroceryApp() {
   ];
   const [groceries, setGroceries] = useState(initialGroceries);
 
-  const addGrocery = (newGroceryItemName) => {
-    setGroceries([...groceries, {id: 4, groceryItem: newGroceryItemName, completed:false}])
-  }
+  const addGrocery = newGroceryItemName => {
+    setGroceries([
+      ...groceries,
+      { id: 4, groceryItem: newGroceryItemName, completed: false }
+    ]);
+  };
   return (
     <Paper
       style={{
@@ -33,8 +36,12 @@ export default function GroceryApp() {
           <Typography color="inherit"> GROCERY LIST WITH HOOKS </Typography>
         </ToolBar>
       </AppBar>
-      <GroceryForm addGrocery = {addGrocery}/>
-      <GroceryList groceries={groceries}/>
+      <Grid container justify="center" style={{marginTop: "1rem"}}>
+        <Grid item xs={11} md={8} lg={4}>
+          <GroceryForm addGrocery={addGrocery} />
+          <GroceryList groceries={groceries} />
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
