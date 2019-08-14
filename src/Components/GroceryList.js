@@ -9,7 +9,7 @@ export default function GroceryList({ groceries, remove, toggleGrocery,editGroce
   return (
     <Paper>
       <List>
-        {groceries.map(groceryItem => (
+        {groceries.map((groceryItem, i) => (
           <>
             <GroceryItem
               bought={groceryItem.bought}
@@ -20,7 +20,7 @@ export default function GroceryList({ groceries, remove, toggleGrocery,editGroce
               toggleGrocery={toggleGrocery}
               editGrocery={editGrocery}
             />
-            <Divider />
+            { i< groceries.length -1 && <Divider />}
           </>
         ))}
       </List>

@@ -10,8 +10,13 @@ export default function EditGroceryItem({editGrocery, id, toggle, name}) {
             editGrocery(id, inputValue);
             toggle();
             reset();
-        }}>
-        <TextField onChange={handleChange} value={inputValue} margin="normal" fullWidth>
+        }}
+        style={{
+          marginLeft: "1rem",
+          width: "50%"
+        }}
+        >
+        <TextField onChange={handleChange} value={inputValue} margin="normal" fullWidth autoFocus>
         </TextField>
         </form>
     )

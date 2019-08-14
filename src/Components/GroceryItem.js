@@ -13,7 +13,11 @@ export default function GroceryItem({name, bought, id, remove, toggleGrocery, ed
     const [ isEditing, toggle ] = useToggleState(false);
 
     return (
-        <ListItem>
+        <ListItem
+        style={{
+            height: "64px",
+        }}
+        >
             {isEditing ? <EditGroceryItem editGrocery={editGrocery} id={id} toggle={toggle} name={name} /> : 
             <>
             <Checkbox checked={bought} tabIndex={-1} onClick={() => toggleGrocery(id)}/>
