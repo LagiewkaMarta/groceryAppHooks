@@ -6,24 +6,31 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditGroceryItem from "./EditGroceryItem";
+import useToggleState from "../hooks/useToggleState";
 
-
-export default function GroceryItem({name, bought}) {
+export default function GroceryItem({name, bought, id, remove, toggleGrocery, editGrocery}) {
+    const [ isEditing, toggle ] = useToggleState(false);
 
     return (
         <ListItem>
-            <Checkbox checked={bought} tabIndex={-1} />
+            {isEditing ? <EditGroceryItem editGrocery={editGrocery} id={id} toggle={toggle} name={name} /> : 
+            <>
+            <Checkbox checked={bought} tabIndex={-1} onClick={() => toggleGrocery(id)}/>
         <ListItemText style={{textDecoration: bought ? "line-through" : "none" }}>
             {name} 
         </ListItemText>
-        <ListItemSecondaryAction>
+        <ListItemSecondaryAction onClick={toggle}>
             <IconButton aria-label="Edit" >
                 <EditIcon/>
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => remove(id)}>
                 <DeleteIcon aria-label="Delete" />
             </IconButton>
         </ListItemSecondaryAction>
+        </>
+            }
       </ListItem>
+            
     )
 }

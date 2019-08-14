@@ -6,21 +6,33 @@ import ToolBar from "@material-ui/core/ToolBar";
 import Grid from "@material-ui/core/Grid";
 import GroceryList from "./GroceryList";
 import GroceryForm from "./GroceryForm";
+const uuidv4 = require('uuid/v4');
 
 export default function GroceryApp() {
-  const initialGroceries = [
-    { id: 1, name: "tomato", bought: false },
-    { id: 2, name: "shrimps", bought: true },
-    { id: 3, name: "cheddar cheese", bought: false }
-  ];
+  const initialGroceries = [];
   const [groceries, setGroceries] = useState(initialGroceries);
 
   const addGrocery = newGroceryItemName => {
     setGroceries([
       ...groceries,
-      { id: 4, name: newGroceryItemName, bought: false }
+      { id: uuidv4(), name: newGroceryItemName, bought: false }
     ]);
   };
+
+  const removeGrocery = (groceryId) => {
+    const newGroceryList = groceries.filter(grocery => grocery.id !== groceryId);
+    setGroceries(newGroceryList);
+  }
+
+  const toggleGrocery = (groceryId) => {
+    const newGroceryList = groceries.map(grocery => grocery.id === groceryId ? {...grocery, bought: !grocery.bought} : grocery);
+    setGroceries(newGroceryList);
+  }
+
+  const editGrocery = (groceryId, newGroceryName) => {
+    const newGroceryList = groceries.map(item => item.id === groceryId ? {...item, name: newGroceryName} : item);
+    setGroceries(newGroceryList);
+  }
   return (
     <Paper
       style={{
@@ -39,7 +51,7 @@ export default function GroceryApp() {
       <Grid container justify="center" style={{marginTop: "1rem"}}>
         <Grid item xs={11} md={8} lg={4}>
           <GroceryForm addGrocery={addGrocery} />
-          <GroceryList groceries={groceries} />
+          <GroceryList groceries={groceries} remove={removeGrocery} toggleGrocery={toggleGrocery} editGrocery={editGrocery} />
         </Grid>
       </Grid>
     </Paper>
