@@ -9,16 +9,16 @@ import GroceryForm from "./GroceryForm";
 
 export default function GroceryApp() {
   const initialGroceries = [
-    { id: 1, groceryItem: "tomato", completed: false },
-    { id: 2, groceryItem: "shrimps", completed: true },
-    { id: 3, groceryItem: "cheddar cheese", completed: false }
+    { id: 1, name: "tomato", bought: false },
+    { id: 2, name: "shrimps", bought: true },
+    { id: 3, name: "cheddar cheese", bought: false }
   ];
   const [groceries, setGroceries] = useState(initialGroceries);
 
   const addGrocery = newGroceryItemName => {
     setGroceries([
       ...groceries,
-      { id: 4, groceryItem: newGroceryItemName, completed: false }
+      { id: 4, name: newGroceryItemName, bought: false }
     ]);
   };
   return (
