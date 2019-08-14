@@ -6,46 +6,18 @@ import ToolBar from "@material-ui/core/ToolBar";
 import Grid from "@material-ui/core/Grid";
 import GroceryList from "./GroceryList";
 import GroceryForm from "./GroceryForm";
-const uuidv4 = require("uuid/v4");
+import useGroceryState from "../hooks/useGroceryState";
 
 export default function GroceryApp() {
   const initialGroceries = JSON.parse(localStorage.getItem("groceries")) || [];
-  
-  const [groceries, setGroceries] = useState(initialGroceries);
+
+  const {groceries, addGrocery, removeGrocery, toggleGrocery, editGrocery} = useGroceryState(initialGroceries);
 
   useEffect(() => {
     localStorage.setItem("groceries", JSON.stringify(groceries));
   }, [groceries]);
 
-  const addGrocery = newGroceryItemName => {
-    setGroceries([
-      ...groceries,
-      { id: uuidv4(), name: newGroceryItemName, bought: false }
-    ]);
-  };
-
-  const removeGrocery = groceryId => {
-    const newGroceryList = groceries.filter(
-      grocery => grocery.id !== groceryId
-    );
-    setGroceries(newGroceryList);
-  };
-
-  const toggleGrocery = groceryId => {
-    const newGroceryList = groceries.map(grocery =>
-      grocery.id === groceryId
-        ? { ...grocery, bought: !grocery.bought }
-        : grocery
-    );
-    setGroceries(newGroceryList);
-  };
-
-  const editGrocery = (groceryId, newGroceryName) => {
-    const newGroceryList = groceries.map(item =>
-      item.id === groceryId ? { ...item, name: newGroceryName } : item
-    );
-    setGroceries(newGroceryList);
-  };
+  
   return (
     <Paper
       style={{
