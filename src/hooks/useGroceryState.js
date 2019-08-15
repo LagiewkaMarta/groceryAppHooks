@@ -1,9 +1,9 @@
-import {useState} from "react";
+import useLocalstorageState from "./useLocalstorageState";
 const uuidv4 = require("uuid/v4");
 
 export default (initialGroceries) => {
 
-    const [groceries, setGroceries] = useState(initialGroceries);
+    const [groceries, setGroceries] = useLocalstorageState("groceries", initialGroceries);
 
     return {
         groceries,
@@ -31,7 +31,7 @@ export default (initialGroceries) => {
             );
             setGroceries(newGroceryList);
           },
-          
+
           editGrocery: (groceryId, newGroceryName) => {
             const newGroceryList = groceries.map(item =>
               item.id === groceryId ? { ...item, name: newGroceryName } : item

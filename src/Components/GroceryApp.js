@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,15 +9,14 @@ import GroceryForm from "./GroceryForm";
 import useGroceryState from "../hooks/useGroceryState";
 
 export default function GroceryApp() {
-  const initialGroceries = JSON.parse(localStorage.getItem("groceries")) || [];
+  const {
+    groceries,
+    addGrocery,
+    removeGrocery,
+    toggleGrocery,
+    editGrocery
+  } = useGroceryState([]);
 
-  const {groceries, addGrocery, removeGrocery, toggleGrocery, editGrocery} = useGroceryState(initialGroceries);
-
-  useEffect(() => {
-    localStorage.setItem("groceries", JSON.stringify(groceries));
-  }, [groceries]);
-
-  
   return (
     <Paper
       style={{
